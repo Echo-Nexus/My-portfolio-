@@ -1,6 +1,6 @@
 // contact.js
 
-alert("Note :- Fill your right contact details. Thank you.");
+alert("Note :- Fill your right contact details otherwiseyou will be ignored. Thank you.");
 document.addEventListener("DOMContentLoaded", function () {
     const contactForm = document.getElementById("contact-form");
 
