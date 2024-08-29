@@ -1,27 +1,25 @@
-// contact.js
-
 alert("Note :- Fill your right contact details to hire me otherwise you will be ignored. Thank you.");
-document.addEventListener("DOMContentLoaded", function () {
-    const contactForm = document.getElementById("contact-form");
+(function() {
+    emailjs.init("MR5ZB6Bd0v13HEG2C");
+})();
 
-    contactForm.addEventListener("submit", function (event) {
-        event.preventDefault();
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-        const formData = new FormData(contactForm);
-        const data = {
-            from_name: formData.get("from_name"),
-            email_id: formData.get("email_id"),
-            mobile_number: formData.get("mobile_number"),
-            message: formData.get("message"),
-        };
+    const templateParams = {
+        from_name: document.getElementById('from_name').value,
+        email_id: document.getElementById('email_id').value,
+        mobile_number: document.getElementById('mobile_number').value,
+        message: document.getElementById('message').value
+    };
 
-        emailjs.send("service_9si86up", "template_e35kumt", data)
-            .then(function (response) {
-                console.log('SUCCESS!', response.status, response.text);
-                alert("Message sent successfully!");
-            }, function (error) {
-                console.log('FAILED...', error);
-                alert("Failed to send the message. Please try again.");
-            });
-    });
+    emailjs.send('service_9si86up', 'template_e35kumt', templateParams)
+        .then(function(response) {
+            document.getElementById('status').textContent = 'Message sent successfully!';
+            document.getElementById('status').style.color = 'green';
+            document.getElementById('contact-form').reset();
+        }, function(error) {
+            document.getElementById('status').textContent = 'Failed to send message. Please try again later.';
+            document.getElementById('status').style.color = 'red';
+        });
 });
