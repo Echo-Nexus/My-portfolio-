@@ -3,9 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Form</title>
-    <link rel="stylesheet" href="contact.css">
-    <script src="contact.js" defer></script>
     <script type="text/javascript"
         src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
 </script>
@@ -16,36 +13,44 @@
       });
    })();
 </script>
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="contact.css">
 </head>
 <body>
     <header>
         <div class="logo">
-            <a href="https://vxsystem.netlify.app/">
-                <img src="Cuteboy.jpg" id="Logo" alt="Logo">
-            </a>
+            <!-- Replace with your logo image -->
+            <a href="index.html"><img src="Cuteboy.jpg" alt="Your Logo"></a>
         </div>
     </header>
+    
     <main>
         <section class="contact-section">
+            <div class="contact-info">
+                <!-- Add a relevant image here -->
+                <img src="Contact.jpg" alt="Contact Us Image">
+            </div>
             <div class="contact-form">
-                <h2>Get in touch with "Vx System". </h2>
+                <h2>Contact Us</h2>
                 <form id="contact-form">
-                    <div class="form-group">
-                        <input type="text" name="from_name" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" name="email_id" placeholder="Email Address" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" name="mobile_number" placeholder="Phone No." required>
-                    </div>
-                    <div class="form-group">
-                        <textarea name="message" placeholder="Message" required></textarea>
-                    </div>
-                    <button type="submit">Send</button>
+                    <label for="from_name">Name:</label>
+                    <input type="text" id="from_name" name="from_name" required>
+                    
+                    <label for="email_id">Email:</label>
+                    <input type="email" id="email_id" name="email_id" required>
+                    
+                    <label for="mobile_number">Mobile Number:</label>
+                    <input type="text" id="mobile_number" name="mobile_number" required>
+                    
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                    
+                    <button type="submit">Send Message</button>
                 </form>
+                <div id="status"></div>
             </div>
         </section>
     </main>
+    <script src="contact.js"></script>
 </body>
-</html>
+    </html>
