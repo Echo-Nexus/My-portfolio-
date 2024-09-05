@@ -1,6 +1,6 @@
 alert("Note :- Fill your right contact details to hire me otherwise you will be ignored. Thank you.");
 (function() {
-    emailjs.init("MR5ZB6Bd0v13HEG2C");
+    emailjs.init("LpXWaXDiZagliNUuX");
 })();
 
 document.getElementById('contact-form').addEventListener('submit', function(event) {
@@ -13,7 +13,7 @@ document.getElementById('contact-form').addEventListener('submit', function(even
         message: document.getElementById('message').value
     };
 
-    emailjs.send('service_9si86up', 'template_e35kumt', templateParams)
+    emailjs.send('service_zia56j6', 'template_pr7mj3h', templateParams)
         .then(function(response) {
             document.getElementById('status').textContent = 'Message sent successfully!';
             document.getElementById('status').style.color = 'green';
