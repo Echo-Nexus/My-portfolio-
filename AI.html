@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT</title>
+    <style>
+        /* General Styles */
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            height: 90%;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        /* Restart Button Style */
+        #restartButton {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: #333;
+            font-size: 1em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            margin-right: 10px;
+        }
+
+        #restartButton:hover {
+            background-color: #45a049;
+            color: white;
+        }
+
+        /* Chat Header */
+        .chat-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        #chatLogo {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .chat-header h1 {
+            font-size: 1.5em;
+            margin: 0;
+        }
+
+        /* Chat Box */
+        .chat-box {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+        }
+
+        /* Input Container */
+        .input-container {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #f1f1f1;
+            width: 100%;
+        }
+
+        .input-container input {
+            flex-grow: 1;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f7f7f7;
+            margin-right: 10px;
+        }
+
+        .input-container button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .input-container button:hover {
+            background-color: #45a049;
+        }
+
+        /* Chat Bubbles */
+        .user-msg, .ai-msg {
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 20px;
+            max-width: 75%;
+            word-wrap: break-word;
+            font-size: 1.1em;
+            line-height: 1.5;
+        }
+
+        .user-msg {
+            background-color: #e1f7d5;
+            text-align: right;
+            margin-left: auto;
+        }
+
+        .ai-msg {
+            background-color: #f1f1f1;
+            text-align: left;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Chat Header Section with Logo and Text -->
+        <div class="chat-header">
+            <img src="https://i.postimg.cc/TPJ275gf/189f5abf-9abe-47c0-8b60-6613bdd19b16.jpg" alt="ChatGPT Logo" id="chatLogo" />
+            <a href="index.html"><h1>SPARK JELLINESS</h1></a>
+        </div>
+        
+        <!-- Chat Box -->
+        <div class="chat-box" id="chatBox"></div>
+        
+        <!-- Input Field for Messages -->
+        <div class="input-container">
+            <button id="restartButton" onclick="restartChat()">Restart Chat</button>
+            <input type="text" id="userInput" placeholder="Type a message..." onkeypress="if(event.key === 'Enter'){sendMessage()}">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+      alert("This is a full functional AI made by Vx-system. AI can make mistake so read and write prompt carefully.");
+        // Define the function to handle sending the message
+        function sendMessage() {
+            const userMessage = document.getElementById("userInput").value;
+            if (!userMessage) return;
+
+            const chatBox = document.getElementById("chatBox");
+            const userMessageElement = document.createElement("div");
+            userMessageElement.classList.add("user-msg");
+            userMessageElement.innerHTML = `<p>${userMessage}</p>`;
+            chatBox.appendChild(userMessageElement);
+
+            document.getElementById("userInput").value = '';
+            fetchGroqData(userMessage);
+        }
+
+        // Define the function to handle AI response
+        async function fetchGroqData(prompt) {
+            const apiKey = "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"; // Replace with your API key
+            const url = "https://api.groq.com/openai/v1/chat/completions";
+
+            const requestBody = {
+                model: "llama3-8b-8192",
+                messages: [
+                    {
+                        role: "user",
+                        content: prompt,
+                    }
+                ]
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data from Groq API');
+                }
+
+                const data = await response.json();
+                const aiMessage = data.choices[0].message.content;
+
+                const chatBox = document.getElementById("chatBox");
+                const aiMessageElement = document.createElement("div");
+                aiMessageElement.classList.add("ai-msg");
+                aiMessageElement.innerHTML = `<p>${aiMessage}</p>`;
+                chatBox.appendChild(aiMessageElement);
+
+                chatBox.scrollTop = chatBox.scrollHeight;
+            } catch (error) {
+                console.error("Error: ", error);
+            }
+        }
+
+        // Restart chat function
+        function restartChat() {
+            document.getElementById("chatBox").innerHTML = '';
+            document.getElementById("userInput").value = '';
+        }
+    </script>
+</body>
+</html>
